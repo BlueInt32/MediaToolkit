@@ -89,6 +89,7 @@
         Wuxga,
         Wvga,
         Wxga,
-        Xga
+        Xga,
+		_200par125
     }
 }

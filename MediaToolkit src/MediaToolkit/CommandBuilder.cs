@@ -40,6 +40,17 @@ namespace MediaToolkit
             commandBuilder.AppendFormat(" -t {0} ", 1);
             commandBuilder.AppendFormat(" -vframes {0} ", 1);
 
+			// Video size / resolution
+			if (conversionOptions.VideoSize != VideoSize.Default)
+			{
+				string size = conversionOptions.VideoSize.ToLower();
+				if (size.StartsWith("_")) size = size.Replace("_", "");
+				if (size.Contains("_")) size = size.Replace("_", "-");
+				if (size.Contains("par")) size = size.Replace("par", "*");
+
+				commandBuilder.AppendFormat(" -s {0} ", size);
+			}
+
             return commandBuilder.AppendFormat(" \"{0}\" ", outputFile.Filename).ToString();
         }
 
@@ -91,6 +102,7 @@ namespace MediaToolkit
                 string size = conversionOptions.VideoSize.ToLower();
                 if (size.StartsWith("_")) size = size.Replace("_", "");
                 if (size.Contains("_")) size = size.Replace("_", "-");
+				if (size.Contains("par")) size = size.Replace("par", "*");
 
                 commandBuilder.AppendFormat(" -s {0} ", size);
             }
